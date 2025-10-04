@@ -1,2 +1,25 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
+
+.subtle-bounce {
+  display: inline-block;
+  animation: subtle-bounce 3s ease-in-out infinite;
+}
+
+@keyframes subtle-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-1px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-1px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
