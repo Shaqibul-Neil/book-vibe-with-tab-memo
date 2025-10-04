@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useParams } from 'react-router';
 import BooksProvider from '../BooksProvider/BooksProvider';
+import { addToStoredDB } from '../utility/addToDB';
 
 const BookDetails = () => {
   const { title } = useParams();
@@ -8,6 +9,7 @@ const BookDetails = () => {
   const book = booksData.find(book => book.bookName === title);
   // console.log(bookName, book);
   const {
+    bookId,
     image,
     bookName = 'No Title',
     author = 'Unknown Author',
@@ -19,6 +21,11 @@ const BookDetails = () => {
     yearOfPublishing = 'N/A',
     rating = 'N/A',
   } = book || {};
+
+  //adding to local storage read list
+  const handleMarkAsRead = id => {
+    addToStoredDB(id);
+  };
 
   return (
     <div className="flex justify-between items-center my-12 h-[calc(100vh-82px] gap-12">
@@ -77,7 +84,10 @@ const BookDetails = () => {
           </div>
         </div>
         <div className="flex items-center gap-6">
-          <button className="font-bold px-12 py-3 border rounded-lg cursor-pointer text-lg">
+          <button
+            className="font-bold px-12 py-3 border rounded-lg cursor-pointer text-lg"
+            onClick={() => handleMarkAsRead(bookId)}
+          >
             Mark As Read
           </button>
           <button className="text-white bg-[#50B1C9] px-12 py-3 rounded-lg cursor-pointer text-lg font-bold">
