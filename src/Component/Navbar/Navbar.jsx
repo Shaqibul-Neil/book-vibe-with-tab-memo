@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router';
 import Container from '../Container/Container';
 
 const Navbar = () => {
@@ -31,13 +32,13 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-base gap-2"
             >
               <li>
-                <a>Home</a>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <a>Listed Books</a>
+                <NavLink to="/listed-books">Listed Books</NavLink>
               </li>
               <li>
-                <a>Pages To Read</a>
+                <NavLink to="/pages-to-read">Pages To Read</NavLink>
               </li>
               <li>
                 <a className="btn btn-success w-24">Sign In</a>
@@ -52,13 +53,13 @@ const Navbar = () => {
         <div className="hidden lg:flex">
           <ul className="flex items-center gap-8 text-base">
             <li>
-              <a>Home</a>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <a>Listed Books</a>
+              <NavLink to="/listed-books">Listed Books</NavLink>
             </li>
             <li>
-              <a>Pages To Read</a>
+              <NavLink to="/pages-to-read">Pages To Read</NavLink>
             </li>
           </ul>
         </div>
