@@ -1,14 +1,16 @@
 import { FileText, MapPin, Users } from 'lucide-react';
 
-const ReadList = ({ readList }) => {
+const ReadList = ({ sortedBooks }) => {
   return (
     <div className="space-y-16">
       <h3 className="text-2xl text-center font-semibold">
         Books I Read :
-        {readList.length < 9 ? `0${readList.length}` : readList.length}
+        {sortedBooks.length < 9
+          ? ` 0${sortedBooks.length}`
+          : sortedBooks.length}
       </h3>
       <div className="grid grid-cols-1 gap-6">
-        {readList.map(book => (
+        {sortedBooks.map(book => (
           <div
             className="shadow-sm flex items-center gap-6 border p-5 rounded-lg border-gray-300"
             key={book.bookId}
