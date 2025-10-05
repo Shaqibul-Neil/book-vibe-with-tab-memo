@@ -1,7 +1,11 @@
 import { useContext } from 'react';
 import { useParams } from 'react-router';
 import BooksProvider from '../BooksProvider/BooksProvider';
-import { addToStoredDB } from '../utility/addToDB';
+import { addToStoredDB, getStoredBook } from '../utility/addToDB';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 const BookDetails = () => {
   const { title } = useParams();
@@ -24,7 +28,28 @@ const BookDetails = () => {
 
   //adding to local storage read list
   const handleMarkAsRead = id => {
-    addToStoredDB(id);
+    //checking before the alert if book exist in the local storage or not
+    const storedBookData = getStoredBook();
+    if (storedBookData.includes(String(bookId))) {
+      Swal.fire(`"${bookName}" is already marked as read!`, '', 'info');
+      return;
+    }
+    // Not added yet, show confirmation
+    Swal.fire({
+      title: `Do you want to mark "${bookName}" as read?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then(result => {
+      if (result.isConfirmed) {
+        addToStoredDB(id);
+        Swal.fire(`"${bookName}" is marked as read!`, '', 'success');
+      } else if (result.isDenied) {
+        Swal.fire(`"${bookName}" is not marked as read!`, '', 'error');
+        return;
+      }
+    });
   };
 
   return (
