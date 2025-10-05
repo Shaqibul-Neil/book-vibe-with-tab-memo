@@ -1,10 +1,28 @@
-import { Link } from 'react-router';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ReadList from '../Component/ReadList/ReadList';
+import WishList from '../Component/WishList/WishList';
+import { useContext, useEffect, useState } from 'react';
+import BooksProvider from '../BooksProvider/BooksProvider';
+import { getStoredBook } from '../utility/addToDB';
 
 const ListedBooks = () => {
+  const [readList, setReadList] = useState([]);
+  const { booksData } = useContext(BooksProvider);
+  console.log(booksData);
+
+  useEffect(() => {
+    const storedBookData = getStoredBook();
+    console.log(storedBookData);
+    const myReadList = booksData.filter(book =>
+      storedBookData.includes(book.bookId)
+    );
+    console.log(myReadList);
+    setReadList(myReadList);
+  }, [booksData]);
+
   return (
-    <div className="mt-6">
+    <div className="mt-6 min-h-[80vh]">
       <div className="h-28 bg-[rgba(19,19,19,0.05)]">
         <div className="flex items-center justify-center h-full">
           <h2 className="text-3xl font-bold">Books</h2>
@@ -27,14 +45,10 @@ const ListedBooks = () => {
           </TabList>
           <div className="my-8">
             <TabPanel>
-              <h3 className="text-2xl text-center font-semibold">
-                My Read Books list
-              </h3>
+              <ReadList readList={readList} />
             </TabPanel>
             <TabPanel>
-              <h3 className="text-2xl text-center font-semibold">
-                My Wish list
-              </h3>
+              <WishList />
             </TabPanel>
           </div>
         </Tabs>
