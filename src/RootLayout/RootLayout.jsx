@@ -9,7 +9,7 @@ const RootLayout = () => {
   return (
     <BooksProvider.Provider value={{ booksData }}>
       <div>
-        <header className="py-4 bg-green-100">
+        <header className="lg:py-6 py-4 bg-green-100">
           <Navbar />
         </header>
         <Container>

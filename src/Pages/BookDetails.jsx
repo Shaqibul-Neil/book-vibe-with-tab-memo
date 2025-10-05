@@ -28,7 +28,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div className="flex justify-between items-center my-12 h-[calc(100vh-82px] gap-12">
+    <div className="flex justify-between items-center my-24 h-[calc(100vh-82px] gap-12">
       <figure className="w-[50%] h-[790px] bg-[rgba(19,19,19,0.05)] rounded-lg flex items-center justify-center">
         <img
           src={image || ''}
