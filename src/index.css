@@ -23,3 +23,11 @@
     transform: translateY(0);
   }
 }
+
+/* Confirm button text color */
+.swal2-popup .swal2-styled.swal2-confirm {
+  background-color: #28a745 !important;
+}
+.swal2-popup .swal2-styled.swal2-deny {
+  background-color: #960c0c !important; /* Red Don't Save button */
+}

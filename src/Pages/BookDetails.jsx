@@ -4,6 +4,7 @@ import BooksProvider from '../BooksProvider/BooksProvider';
 import { addToStoredDB, getStoredBook } from '../utility/addToDB';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { ToastContainer, toast } from 'react-toastify';
 
 const MySwal = withReactContent(Swal);
 
@@ -31,7 +32,10 @@ const BookDetails = () => {
     //checking before the alert if book exist in the local storage or not
     const storedBookData = getStoredBook();
     if (storedBookData.includes(String(bookId))) {
-      Swal.fire(`"${bookName}" is already marked as read!`, '', 'info');
+      toast.warn(`"${bookName}" is already marked as read!`, {
+        position: 'bottom-right',
+        theme: 'dark',
+      });
       return;
     }
     // Not added yet, show confirmation
@@ -41,13 +45,23 @@ const BookDetails = () => {
       showCancelButton: true,
       confirmButtonText: 'Save',
       denyButtonText: `Don't save`,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#6c757d',
+      denyButtonColor: '#960c0c',
     }).then(result => {
       if (result.isConfirmed) {
-        addToStoredDB(id);
-        Swal.fire(`"${bookName}" is marked as read!`, '', 'success');
+        addToStoredDB(bookId);
+        //if saved then color change
+        Swal.fire({
+          title: `"${bookName}" is marked as read!`,
+          icon: 'success',
+        });
       } else if (result.isDenied) {
-        Swal.fire(`"${bookName}" is not marked as read!`, '', 'error');
-        return;
+        //if not saved then color change
+        Swal.fire({
+          title: `"${bookName}" is not marked as read!`,
+          icon: 'error',
+        });
       }
     });
   };
@@ -119,6 +133,7 @@ const BookDetails = () => {
             Add to Wishlist
           </button>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
